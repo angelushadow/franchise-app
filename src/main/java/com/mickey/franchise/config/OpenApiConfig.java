@@ -12,8 +12,13 @@ import io.swagger.v3.oas.models.info.License;
 
 @Configuration
 public class OpenApiConfig {
+	
+	@Bean
+	public OpenAPI openAPI() {
+		return new OpenAPI().info(new Info().title("API Franquicia").version("1.0.0"));
+	}
 
-    @Bean
+    
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
             .info(new Info()

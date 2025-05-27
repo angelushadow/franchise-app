@@ -14,6 +14,7 @@ import com.mickey.franchise.models.dto.FranchiseDTO;
 import com.mickey.franchise.models.mapper.FranchiseMapper;
 import com.mickey.franchise.models.model.Franchise;
 import com.mickey.franchise.repository.FranchiseRepository;
+import com.mickey.franchise.services.FranchiseService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,31 +28,27 @@ import reactor.core.publisher.Mono;
 public class FranchiseController {
 
     @Autowired
-    private FranchiseRepository franchiseRepository;
+    private FranchiseService franchiseService;
 
     private final FranchiseMapper mapper = FranchiseMapper.INSTANCE;
 
     @PostMapping
     @Operation(summary = "Crear una nueva franquicia", description = "Agrega una nueva franquicia al sistema")
     public Mono<FranchiseDTO> createFranchise(@Valid @RequestBody FranchiseDTO franchiseDTO) {
-        Franchise franchise = mapper.toEntity(franchiseDTO);
-        return franchiseRepository.save(franchise).map(mapper::toDTO);
+      
+        return franchiseService.createFranchise(franchiseDTO);
     }
 
     @GetMapping
     @Operation(summary = "Listar todas las franquicias", description = "Obtiene todas las franquicias disponibles")
     public Flux<FranchiseDTO> getAllFranchises() {
-        return franchiseRepository.findAll().map(mapper::toDTO);
+        return franchiseService.getAllFranchises();
     }
 
     @PatchMapping("/{franchiseId}/name")
     @Operation(summary = "Actualizar el nombre de una franquicia", description = "Actualiza el nombre de una franquicia específica")
     public Mono<FranchiseDTO> updateFranchiseName(@PathVariable Long franchiseId, @RequestParam String name) {
-        return franchiseRepository.findById(franchiseId)
-                .flatMap(franchise -> {
-                    franchise.setName(name);
-                    return franchiseRepository.save(franchise);
-                })
-                .map(mapper::toDTO);
+        return franchiseService.updateFranchiseName(franchiseId, name);
+ 
     }
 }

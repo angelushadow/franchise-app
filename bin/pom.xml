@@ -13,7 +13,7 @@
 	<artifactId>franchise-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>franchise-app</name>
-	<description>Gestión de franquicias, sucursales y productos.</description>
+	<description>Demo project for Spring Boot</description>
 	<url />
 	<licenses>
 		<license />
@@ -32,28 +32,22 @@
 		<mapstruct.version>1.5.5.Final</mapstruct.version>
 	</properties>
 	<dependencies>
-
 		<!-- Spring Boot WebFlux -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 
-		<!-- R2DBC Core -->
-		<dependency>
-			<groupId>io.r2dbc</groupId>
-			<artifactId>r2dbc-spi</artifactId>
-		</dependency>
-
+		<!-- Spring Data R2DBC -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-r2dbc</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>io.r2dbc</groupId>
-			<artifactId>r2dbc-postgresql</artifactId>
-			<version>0.8.13.RELEASE</version>
-		</dependency>
+
+		<!-- R2DBC PostgreSQL Driver -->
+
+
+		<!-- PostgreSQL Driver (runtime) -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -67,26 +61,11 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Springdoc OpenAPI 
+		<!-- Springdoc OpenAPI -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
 			<version>1.7.0</version>
-		</dependency>
-		-->
-
-		<!-- Springdoc OpenAPI 	-->
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
-			<version>2.5.0</version>
-		</dependency>
-
-
-		<!-- Validaciones -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
 		<!-- MapStruct -->
@@ -111,6 +90,7 @@
 			<version>0.2.0</version>
 			<scope>provided</scope>
 		</dependency>
+
 
 		<!-- Testing: JUnit 5 + Mockito -->
 		<dependency>
@@ -148,7 +128,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-
+				<version>3.11.0</version>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>

@@ -14,42 +14,42 @@ import com.mickey.franchise.models.dto.BranchDTO;
 import com.mickey.franchise.models.mapper.BranchMapper;
 import com.mickey.franchise.models.model.Branch;
 import com.mickey.franchise.repository.BranchRepository;
+import com.mickey.franchise.services.BranchService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/branches")
 @Tag(name = "Branch Controller", description = "Gestión de sucursales")
+@RequiredArgsConstructor
 public class BranchController {
 
-	@Autowired
-	private BranchRepository branchRepository;
+	private final BranchService branchService;
+
+
 
 	private final BranchMapper mapper = BranchMapper.INSTANCE;
 
 	@PostMapping
 	@Operation(summary = "Crear una nueva sucursal", description = "Agrega una nueva sucursal asociada a una franquicia")
 	public Mono<BranchDTO> createBranch(@Valid @RequestBody BranchDTO branchDTO) {
-		Branch branch = mapper.toEntity(branchDTO);
-		return branchRepository.save(branch).map(mapper::toDTO);
+		return branchService.createBranch(branchDTO);
 	}
 
 	@PatchMapping("/{branchId}")
 	@Operation(summary = "Actualizar el nombre de una sucursal", description = "Actualiza el nombre de una sucursal específica")
 	public Mono<BranchDTO> updateBranchName(@PathVariable Long branchId, @RequestParam String name) {
-		return branchRepository.findById(branchId).flatMap(branch -> {
-			branch.setName(name);
-			return branchRepository.save(branch);
-		}).map(mapper::toDTO);
+		return branchService.updateBranchName(branchId, name);		
 	}
 
 	@GetMapping
 	@Operation(summary = "Listar todas las sucursales", description = "Obtiene todas las sucursales disponibles")
 	public Flux<BranchDTO> getAllBranches() {
-		return branchRepository.findAll().map(mapper::toDTO);
+		return branchService.getAllBranches();
 	}
 }
