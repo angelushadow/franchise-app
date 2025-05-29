@@ -1,3 +1,11 @@
+-- Crear la base de datos (requiere permisos de superusuario)
+-- CREATE DATABASE franquicia_db;
+
+-- Conéctate a la nueva base
+-- \c franquicia_db;
+
+-- Crear tablas
+
 -- Tabla de franquicias
 CREATE TABLE IF NOT EXISTS franchises (
     id BIGSERIAL PRIMARY KEY,

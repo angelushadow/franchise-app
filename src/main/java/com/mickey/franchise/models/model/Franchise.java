@@ -18,6 +18,5 @@ public class Franchise {
     private Long id;
     private String name;
     
-    @Transient
-    private List<Branch> branches;
+
 }
